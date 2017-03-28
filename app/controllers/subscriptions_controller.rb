@@ -8,6 +8,10 @@ class SubscriptionsController < ApplicationController
       @plan = Plan.find_by(price: params[:mc_gross].to_f)
       @subscription = Subscription.create!(plan: @plan, user: @user)
     end
+    if params[:txn_type] == 'subscr_cancel'
+      @user = User.find(params[:custom])
+      @user.subscription.destroy
+    end
     render nothing: true
   end
 end
