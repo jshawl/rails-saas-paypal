@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323160042) do
+ActiveRecord::Schema.define(version: 20170327200320) do
 
   create_table "plans", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.float  "price"
+    t.string "paypal_button_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "plan_id"
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
